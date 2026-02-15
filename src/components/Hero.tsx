@@ -97,9 +97,9 @@ export default function Hero() {
               <div className="flex flex-col gap-1">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-400/10 dark:bg-[#00ff88]/10 border border-emerald-400/20 dark:border-[#00ff88]/20 w-fit">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 dark:bg-[#00ff88] status-live" />
-                  <span className="text-xs text-emerald-400 dark:text-[#00ff88] font-mono font-medium">AVAILABLE FOR HIRE</span>
+                  <span className="text-xs text-emerald-400 dark:text-[#00ff88] font-mono font-medium">AVAILABLE — REMOTE WORLDWIDE</span>
                 </div>
-                <span className="text-xs text-gray-500 font-mono">Hyderabad, India</span>
+                <span className="text-xs text-gray-500 font-mono">Hyderabad · Pune · Bangalore</span>
               </div>
             </motion.div>
 

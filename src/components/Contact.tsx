@@ -29,7 +29,7 @@ const contactLinks = [
   {
     icon: MapPin,
     label: "Location",
-    value: "Hyderabad, India",
+    value: "Remote · Hyderabad · Pune · Bangalore",
     href: "#",
   },
 ];
