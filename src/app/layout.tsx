@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Syed Ameen Hussaini | Platform & DevOps Engineer",
+  title: "Syed Ameen Hussaini | Platform & Cloud DevOps Engineer",
   description:
-    "Platform and DevOps Engineer specializing in AWS, Azure, Kubernetes, Terraform, CI/CD automation, and AI/LLM platform operations.",
+    "Platform and Cloud DevOps Engineer specializing in AWS, Azure, Kubernetes, Terraform, CI/CD automation, and AI/LLM platform operations.",
   keywords: [
     "DevOps",
     "Platform Engineer",
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Syed Ameen Hussaini" }],
   openGraph: {
-    title: "Syed Ameen Hussaini | Platform & DevOps Engineer",
+    title: "Syed Ameen Hussaini | Platform & Cloud DevOps Engineer",
     description:
-      "Platform and DevOps Engineer specializing in designing, securing, and operating cloud-native platforms.",
+      "Platform and Cloud DevOps Engineer specializing in designing, securing, and operating cloud-native platforms.",
     type: "website",
   },
 };

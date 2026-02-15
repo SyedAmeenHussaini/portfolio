@@ -75,7 +75,7 @@ export default function Navbar() {
               <span className="font-bold text-sm text-white leading-tight">
                 Ameen<span className={accentText}>.</span>
               </span>
-              <span className="text-[9px] text-gray-500 font-mono leading-tight">DevOps Engineer</span>
+              <span className="text-[9px] text-gray-500 font-mono leading-tight">Platform & Cloud DevOps Engineer</span>
             </div>
           </a>
 

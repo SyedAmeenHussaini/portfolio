@@ -109,8 +109,8 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-3"
             >
-              <span className="text-white">Syed </span>
-              <span className="gradient-text">Ameen</span>
+              <span className="text-white">Syed Ameen </span>
+              <span className="gradient-text">Hussaini</span>
             </motion.h1>
 
             <motion.div
@@ -120,7 +120,7 @@ export default function Hero() {
               className="flex items-center gap-3 mb-6 justify-center lg:justify-start"
             >
               <span className="text-sky-400 dark:text-[#00e5ff] font-mono text-sm">&gt;_</span>
-              <h2 className="text-xl sm:text-2xl font-semibold text-gray-300 font-mono">Cloud &amp; DevOps Engineer</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-300 font-mono">Platform &amp; Cloud DevOps Engineer</h2>
             </motion.div>
 
             <motion.p

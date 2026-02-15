@@ -67,7 +67,7 @@ export default function About() {
             Building <span className="gradient-text">Scalable</span> Cloud Platforms
           </h2>
           <p className="text-gray-400 max-w-3xl mx-auto text-lg leading-relaxed">
-            I&apos;m a Platform and DevOps Engineer available remotely worldwide and on-site in Hyderabad, Pune &amp; Bangalore,
+            I&apos;m a Platform and Cloud DevOps Engineer available remotely worldwide and on-site in Hyderabad, Pune &amp; Bangalore,
             passionate about designing, securing, and operating cloud-native
             platforms and enterprise production systems. I specialize in building
             highly available systems, securing payment platforms, and deploying

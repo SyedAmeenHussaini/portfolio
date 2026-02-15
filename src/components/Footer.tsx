@@ -18,7 +18,7 @@ export default function Footer() {
               </span>
             </a>
             <p className="text-[10px] text-gray-500 font-mono">
-              Cloud &amp; DevOps Engineer
+              Platform &amp; Cloud DevOps Engineer
             </p>
           </div>
 
