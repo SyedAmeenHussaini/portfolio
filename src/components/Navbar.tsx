@@ -106,14 +106,7 @@ export default function Navbar() {
                 {isDark ? <Sun size={16} /> : <Moon size={16} />}
               </button>
             )}
-            <a
-              href="/Syed_Ameen_Hussaini_Full_2Page_ATS_Final.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-md text-xs font-mono font-medium ${accentBg} border ${accentBorder} ${accentText} hover:bg-sky-400/20 dark:hover:bg-[#00e5ff]/20 transition-all`}
-            >
-              <span className="opacity-60">$</span> resume.pdf
-            </a>
+{/* Resume link removed */}
           </div>
 
           {/* Mobile buttons */}
@@ -162,14 +155,7 @@ export default function Navbar() {
                   {link.name}
                 </a>
               ))}
-              <a
-                href="/Syed_Ameen_Hussaini_Full_2Page_ATS_Final.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`block px-4 py-2.5 mt-2 rounded-md text-sm font-mono text-center ${accentBg} border ${accentBorder} ${accentText}`}
-              >
-                Download Resume
-              </a>
+{/* Resume link removed */}
             </div>
           </motion.div>
         )}
