@@ -156,10 +156,13 @@ export default function Contact() {
               </div>
 
               <form
-                action="https://formspree.io/f/xpzvqvzl"
+                action="https://formsubmit.co/syedameenhussaini3@gmail.com"
                 method="POST"
                 className="p-5 space-y-4"
               >
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                <input type="hidden" name="_subject" value="New message from your portfolio!" />
                 <div>
                   <label
                     htmlFor="name"
