@@ -13,43 +13,58 @@ const experiences = [
     type: "current",
     projects: [
       {
-        name: "Project ARIES - Enterprise AI & Automation Platform",
+        name: "Project ARIES - Enterprise AI & Automation Test Case Gen Platform",
         points: [
-          "Architected a hybrid microservices platform combining Java Spring Boot services on AWS ECS with FastAPI-based AI services on EC2 and AWS Lambda.",
-          "Deployed and managed private Ollama-based LLM models on EC2 for secure, in-house inference workloads.",
-          "Designed API Gateway + ALB architecture with tenant isolation, rate limiting, and Cloudflare WAF integration.",
-          "Implemented GitHub Actions + Terraform pipelines enabling zero-touch deployments and rollbacks.",
+          "Architected a hybrid microservices platform (Java Spring Boot on ECS + FastAPI on EC2/EKS); migrated the monolithic EC2 platform to microservices on ECS Fargate with ALB-based routing, enabling zero-downtime deployments and independent scaling.",
+          "Deployed vLLM on EKS with EC2 GPU node groups for high-throughput AI inference; set up a private Ollama LLM with API Gateway + ALB tenant isolation and Cloudflare WAF.",
+          "Hardened the edge with Cloudflare Zero Trust + OTP, DNSSEC, and device posture policies; built GitHub Actions + Terraform zero-touch pipelines with automated rollbacks.",
+          "Leveraged Cursor IDE & Claude Agents for Terraform module authoring, runbook automation, and AI-assisted code reviews — cutting delivery cycle by ~35%.",
+          "Led and mentored 2 junior cloud engineers — weekly 1:1 IaC code reviews, Terraform module standards, and GitOps onboarding to accelerate team velocity.",
+          "Implemented AWS Cost Explorer + AWS Budgets with SNS alerts and per-environment spend thresholds; built structured CloudWatch Log Groups, error-rate alarms, and Grafana dashboards for inference latency and GPU utilization.",
         ],
       },
       {
-        name: "Project AURORA - Unified Analytics & MLOps Platform",
+        name: "Project AURORA - Analytics, MLOps & Demand Forecasting Platform",
         points: [
-          "Designed Azure Databricks Lakehouse architecture using ADLS Gen2 (Bronze, Silver, Gold).",
-          "Implemented MLflow for experiment tracking, model versioning, and controlled promotion to production.",
-          "Automated training, batch inference, and deployments using Databricks Workflows and Azure Pipelines.",
+          "Designed Azure Databricks Lakehouse architecture using ADLS Gen2 medallion layers (Bronze, Silver, Gold); provisioned multi-environment Terraform infra (dev/staging/prod) with GitHub Actions environment-gated approvals.",
+          "Configured Unity Catalog with granular permissions and Azure AD IAM role assignments to users, service principals, and managed identities via Terraform.",
+          "Implemented MLflow for the full experiment lifecycle with model versioning and controlled production promotion; automated Databricks Workflows for demand forecasting and batch inference.",
+          "Enforced Databricks cluster policies and Azure Cost Management budgets with 80%/100% alert thresholds; built Azure Monitor queries and Grafana dashboards tracking pipeline durations and job failure rates.",
         ],
       },
       {
-        name: "Project LUMA - Conversational AI Platform",
+        name: "Project AURORA V2 - Azure Container Apps, MLOps & LLMOps Modernization",
         points: [
-          "Built LLM-powered conversational services using FastAPI and React for real-time interactions.",
-          "Containerized inference services and deployed on AWS Lambda using Docker images.",
-          "Reduced model rollout time by 60% through automated CI/CD pipelines.",
+          "Built path-scoped GitHub Actions CI/CD (6 workflows) independently gating UI, FastAPI, and Databricks changes; multi-stage Docker Buildx with layer caching and PR-time dry-run builds.",
+          "Ran matrix deployments to Azure Container Apps — one image serving 3 runtimes (API + 2 async workers) via a WORKER_MODE entrypoint dispatch pattern with container healthchecks.",
+          "Implemented keyless auth end-to-end: GitHub → Azure OIDC federated login, ACR pull via managed identity, and Databricks OAuth M2M — with immutable image tags and dev/prod approval gates.",
+          "Authored modular Terraform provisioning the full Azure platform (Container Apps, ACR, Log Analytics, Redis, Postgres Flexible Server, Entra ID) — 8 Container Apps across dev/prod with per-env autoscaling.",
+          "Operationalized a LightGBM demand-forecasting engine with MLflow Model Registry on Unity Catalog; built config-driven medallion ETL on PySpark/Delta Lake with DLT streaming tables and 35 Metric Views.",
+          "Automated CodeQL SAST and Dependabot grouped updates; ran an ARQ + Redis task queue with pub/sub → SSE streaming; deployed a LangGraph ReAct text-to-SQL agent on Databricks Foundation Model Serving.",
         ],
       },
       {
-        name: "AZTRA - Real-Time Production Website",
+        name: "Project LUMA - Conversational AI & AZTRA Production Website",
         points: [
-          "Managed AZTRA's production website (Next.js + Strapi) on AWS EC2 with Nginx reverse proxy.",
-          "Integrated Cloudflare for DNS, CDN caching, SSL, WAF, and DDoS protection.",
-          "Improved availability, performance, and security through caching and firewall policies.",
+          "Built FastAPI + React LLM services on AWS Lambda (Docker); reduced model rollout time by 60% via automated CI/CD with staging gates and distributed tracing.",
+          "Managed the Next.js + Python production site on EC2/Nginx with Cloudflare CDN, SSL, WAF, and DDoS protection; maintained 99.9% uptime SLA with PagerDuty/Slack alerting.",
+          "Remediated a cryptographic supply-chain attack on CI builds — isolated compromised build nodes, rotated secrets, pinned npm dependencies to verified SHAs, enforced npm audit + Trivy gates, and migrated to ephemeral isolated build runners.",
+        ],
+      },
+      {
+        name: "Project LYFTRR - AI-Powered Career-Trajectory Platform (DevOps & MLOps)",
+        points: [
+          "Owned CI/CD, containerization, cloud infrastructure, and observability for a multi-service AI platform (Node + Next.js + FastAPI/Celery) with automated production deploys on GCP.",
+          "Containerized a 4-service stack with profile-based Docker Compose — one manifest runs identically on laptop, dev VPS, and CI — with healthchecks, dependency ordering, and single-command deploys.",
+          "Provisioned GCP ML infrastructure — Vertex AI (Gemini 2.5 Flash) with IAM setup and Cloud SQL Postgres + pgvector (HNSW) — powering a RAG pipeline with a Celery + Redis async worker tier.",
+          "Configured Caddy as TLS-terminating reverse proxy; designed trace-ID propagation via ASGI middleware with structured JSON logging and PII/secret redaction.",
         ],
       },
     ],
   },
   {
     company: "FLEXIPAYMENT FINTECH",
-    role: "DevOps Engineer",
+    role: "Software Engineer",
     location: "Mumbai, India",
     period: "02/2024 - 10/2024",
     type: "past",
@@ -65,9 +80,9 @@ const experiences = [
       {
         name: "Security & Compliance",
         points: [
-          "Secured cloud environments by managing granular IAM policies, KMS encryption, and network configurations aligned with fintech compliance requirements.",
-          "Integrated AWS WAF, Shield, and rate limiting to protect APIs from DDoS attacks and malicious traffic.",
-          "Implemented private networking with restricted outbound traffic and encrypted data-in-transit/at-rest across all services.",
+          "Secured cloud environments by managing granular IAM policies, KMS encryption, and PCI-DSS-compliant network configurations for payment workloads.",
+          "Integrated AWS WAF, Shield Advanced, Trivy, and rate limiting to protect APIs from DDoS attacks and malicious traffic.",
+          "Implemented private networking with NAT Gateways, VPC endpoints, restricted outbound traffic, and ACM-managed TLS with encryption in transit and at rest.",
         ],
       },
       {
@@ -79,11 +94,55 @@ const experiences = [
         ],
       },
       {
+        name: "Multi-Branch Deployment Strategy",
+        points: [
+          "Replaced a single-production-branch workflow (all developers committing directly to prod) with a multi-branch Git strategy across dev, staging, and prod environments.",
+          "Provisioned dedicated Terraform workspaces and AWS infrastructure per environment with environment-gated GitHub Actions pipelines requiring PR review + automated test gates before promotion.",
+        ],
+      },
+      {
         name: "Infrastructure as Code & Observability",
         points: [
           "Automated infrastructure provisioning and configuration management using Terraform and Ansible, eliminating manual drift.",
           "Enabled high availability and observability using CloudWatch dashboards, custom metrics, alarms, and centralized log aggregation.",
           "Collaborated closely with developers to ensure smooth deployments, fast iteration cycles, and rapid incident resolution.",
+        ],
+      },
+    ],
+  },
+  {
+    company: "MESLOGIC IT SOLUTIONS",
+    role: "Jr. Software Engineer",
+    location: "Hyderabad, India (Remote)",
+    period: "09/2021 - 11/2023",
+    type: "past",
+    projects: [
+      {
+        name: "Kubernetes & CI/CD Operations",
+        points: [
+          "Assisted in managing Kubernetes (EKS) clusters — applied namespace isolation, RBAC policies, and ALB Ingress configuration under senior guidance for LMS and healthcare platform workloads.",
+          "Supported operations of Redis caching clusters and contributed to building Jenkins + GitHub Actions CI/CD pipelines for containerised services — first hands-on experience with production deployment automation.",
+        ],
+      },
+      {
+        name: "Monitoring & Cost Visibility",
+        points: [
+          "Helped set up CloudWatch, Prometheus & Grafana monitoring; configured metric-based alerts and assisted in improving incident response time across multiple product teams.",
+          "Proposed and implemented the team's first cost visibility practice — introduced CloudWatch Log Groups and AWS Budget billing alerts after noticing untracked spend.",
+        ],
+      },
+      {
+        name: "Initiative - Terraform IaC Adoption",
+        points: [
+          "Noticed all AWS infrastructure was created manually through the Console — no consistency, no version control, and environments drifted with no way to reproduce them.",
+          "Self-studied Terraform, imported existing AWS resources into Terraform state, and gradually rewrote infrastructure as modular Terraform code (networking, compute, IAM, storage) with remote state in S3 + DynamoDB locking — giving the team version-controlled, repeatable infrastructure for the first time.",
+        ],
+      },
+      {
+        name: "Initiative - Zero Trust Access for Internal Tools",
+        points: [
+          "Identified that internal tools were publicly accessible via URL with no authentication; researched the security risk and raised it with the team lead.",
+          "Proposed and configured Cloudflare Zero Trust Access with email-domain-based authentication, OTP verification, and device posture checks — securing all internal apps without major infrastructure changes.",
         ],
       },
     ],

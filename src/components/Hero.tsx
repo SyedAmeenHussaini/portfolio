@@ -129,9 +129,9 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="text-base text-gray-400 max-w-lg mb-8 leading-relaxed mx-auto lg:mx-0"
             >
-              Architecting cloud-native platforms, automating infrastructure at scale,
-              and building secure CI/CD pipelines. Specialized in AWS, Azure, Kubernetes,
-              Terraform, and AI/ML platform operations.
+              4 years of experience architecting cloud-native platforms, automating
+              infrastructure at scale, and building secure CI/CD pipelines. Specialized
+              in AWS, Azure, GCP, Kubernetes, Terraform, and AI/LLM platform operations.
             </motion.p>
 
             <motion.div
@@ -142,14 +142,14 @@ export default function Hero() {
             >
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-sky-400 dark:from-[#00e5ff] to-violet-500 dark:to-[#7c3aed] text-white font-medium text-sm hover:shadow-xl hover:shadow-sky-500/20 transition-all hover:scale-105"
+                className="btn-shine inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-sky-400 dark:from-[#00e5ff] to-violet-500 dark:to-[#7c3aed] text-white font-medium text-sm shadow-lg shadow-sky-500/20 dark:shadow-[#00e5ff]/10 hover:shadow-xl hover:shadow-sky-500/30 transition-all hover:scale-105"
               >
                 <Mail size={16} />
                 Get In Touch
               </a>
               <a
                 href="#projects"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-gray-700 text-gray-300 font-medium text-sm hover:bg-white/5 hover:border-sky-400/30 dark:hover:border-[#00e5ff]/30 transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm text-gray-300 font-medium text-sm hover:bg-white/[0.07] hover:border-sky-400/30 dark:hover:border-[#00e5ff]/30 transition-all hover:scale-105"
               >
                 View Projects
               </a>

@@ -8,6 +8,8 @@ import {
   MessageSquare,
   Globe,
   CreditCard,
+  Rocket,
+  Compass,
   ArrowUpRight,
   Circle,
 } from "lucide-react";
@@ -15,16 +17,16 @@ import {
 const projects = [
   {
     title: "ARIES",
-    subtitle: "Enterprise AI & Automation Platform",
+    subtitle: "Enterprise AI & Automation Test Case Gen Platform",
     description:
-      "Hybrid microservices platform combining Java Spring Boot on AWS ECS with FastAPI-based AI services. Features private LLM deployment, API Gateway with tenant isolation, and zero-touch deployments.",
+      "Hybrid microservices platform (Spring Boot on ECS + FastAPI on EC2/EKS) with vLLM on EKS GPU node groups for high-throughput inference, private Ollama LLM with tenant isolation, Cloudflare Zero Trust + OTP edge hardening, and zero-touch Terraform pipelines.",
     tech: [
-      "AWS ECS",
-      "EC2",
-      "Lambda",
+      "AWS ECS/EKS",
+      "vLLM",
+      "Ollama",
       "Spring Boot",
       "FastAPI",
-      "Ollama",
+      "Cloudflare Zero Trust",
       "Terraform",
       "GitHub Actions",
     ],
@@ -34,14 +36,15 @@ const projects = [
   },
   {
     title: "AURORA",
-    subtitle: "Unified Analytics & MLOps Platform",
+    subtitle: "Analytics, MLOps & Demand Forecasting Platform",
     description:
-      "Azure Databricks Lakehouse architecture with ADLS Gen2 medallion layers. MLflow integration for experiment tracking, model versioning, and automated training pipelines.",
+      "Azure Databricks Lakehouse with ADLS Gen2 medallion layers and Unity Catalog governance. Multi-environment Terraform infra with gated approvals, MLflow experiment lifecycle, and automated Databricks Workflows for demand forecasting.",
     tech: [
       "Azure Databricks",
       "ADLS Gen2",
+      "Unity Catalog",
       "MLflow",
-      "Azure Pipelines",
+      "Terraform",
       "PySpark",
     ],
     icon: BarChart3,
@@ -49,21 +52,59 @@ const projects = [
     color: "#7c3aed",
   },
   {
+    title: "AURORA V2",
+    subtitle: "Azure Container Apps, MLOps & LLMOps Modernization",
+    description:
+      "Platform modernization on Azure Container Apps with keyless OIDC auth, path-scoped CI/CD (6 workflows), LightGBM forecasting via MLflow Registry on Unity Catalog, DLT medallion ETL, ARQ + Redis task queue, and a LangGraph text-to-SQL agent.",
+    tech: [
+      "Azure Container Apps",
+      "OIDC",
+      "Terraform",
+      "MLflow",
+      "Delta Lake / DLT",
+      "LangGraph",
+      "Redis",
+      "CodeQL",
+    ],
+    icon: Rocket,
+    status: "production",
+    color: "#f43f5e",
+  },
+  {
     title: "LUMA",
     subtitle: "Conversational AI Platform",
     description:
-      "LLM-powered conversational services using FastAPI and React. Containerized inference on AWS Lambda with Docker. Reduced model rollout time by 60% through CI/CD automation.",
+      "LLM-powered conversational services using FastAPI and React on AWS Lambda (Docker). Reduced model rollout time by 60% through CI/CD automation with staging gates and distributed tracing; remediated an npm supply-chain attack with SHA pinning and Trivy gates.",
     tech: [
       "FastAPI",
       "React",
       "AWS Lambda",
       "Docker",
       "LLM",
+      "Trivy",
       "CI/CD",
     ],
     icon: MessageSquare,
     status: "production",
     color: "#00ff88",
+  },
+  {
+    title: "LYFTRR",
+    subtitle: "AI-Powered Career-Trajectory Platform",
+    description:
+      "Multi-service AI platform (Node + Next.js + FastAPI/Celery) on GCP — Vertex AI (Gemini 2.5 Flash) and Cloud SQL Postgres + pgvector powering a RAG pipeline, profile-based Docker Compose stack, Caddy TLS proxy, and single-command GitHub Actions deploys.",
+    tech: [
+      "GCP Vertex AI",
+      "pgvector",
+      "RAG",
+      "Docker Compose",
+      "Celery + Redis",
+      "Caddy",
+      "GitHub Actions",
+    ],
+    icon: Compass,
+    status: "production",
+    color: "#ffb800",
   },
   {
     title: "AZTRA Website",
@@ -85,7 +126,7 @@ const projects = [
     title: "FlexiPayment",
     subtitle: "Fintech-Grade Cloud Infrastructure",
     description:
-      "Scalable, secure AWS infrastructure for fintech web apps — featuring CI/CD with Jenkins & GitHub Actions, Blue-Green/Canary deployments on ECS Fargate, SonarQube quality gates, and 15–20% cost optimization.",
+      "PCI-DSS-compliant AWS infrastructure for payment systems — multi-branch environment isolation (dev/staging/prod), Blue-Green/Canary deployments on ECS Fargate, WAF/Shield Advanced, SonarQube & Trivy gates, and 15–20% cost optimization.",
     tech: [
       "AWS ECS/EKS",
       "Terraform",

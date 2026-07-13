@@ -8,7 +8,7 @@ const highlights = [
   {
     icon: Cloud,
     title: "Cloud Architecture",
-    description: "Multi-cloud platform design across AWS & Azure with high availability",
+    description: "Multi-cloud platform design across AWS, Azure & GCP with high availability",
     color: "from-[#00e5ff] to-[#0ea5e9]",
     iconColor: "text-[#00e5ff]",
   },
@@ -22,7 +22,7 @@ const highlights = [
   {
     icon: Cpu,
     title: "AI/ML Platform Ops",
-    description: "LLM deployment, MLflow pipelines & Databricks Lakehouse",
+    description: "vLLM & Ollama LLM serving, MLflow pipelines & Databricks Lakehouse",
     color: "from-[#00ff88] to-[#34d399]",
     iconColor: "text-[#00ff88]",
   },
@@ -67,11 +67,13 @@ export default function About() {
             Building <span className="gradient-text">Scalable</span> Cloud Platforms
           </h2>
           <p className="text-gray-400 max-w-3xl mx-auto text-lg leading-relaxed">
-            I&apos;m a Platform and Cloud DevOps Engineer available remotely worldwide and on-site in Hyderabad, Pune &amp; Bangalore,
+            I&apos;m a Platform and Cloud DevOps Engineer with 4 years of experience,
+            available remotely worldwide and on-site in Hyderabad, Pune &amp; Bangalore,
             passionate about designing, securing, and operating cloud-native
             platforms and enterprise production systems. I specialize in building
-            highly available systems, securing payment platforms, and deploying
-            scalable AI backends.
+            highly available systems, securing payment platforms, deploying
+            scalable AI/LLM backends, and mentoring junior cloud engineers on
+            IaC and GitOps best practices.
           </p>
         </motion.div>
 

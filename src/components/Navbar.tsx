@@ -58,13 +58,16 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#0f172a]/90 dark:bg-[#0a0e1a]/90 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/30"
-          : "bg-transparent"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-4"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div
+        className={`max-w-6xl mx-auto transition-all duration-300 ${
+          scrolled
+            ? "mt-3 rounded-2xl bg-[#0f172a]/80 dark:bg-[#0a0e1a]/80 backdrop-blur-2xl border border-white/[0.08] shadow-xl shadow-black/40"
+            : "mt-0 rounded-none bg-transparent border border-transparent"
+        }`}
+      >
+      <div className="px-4 sm:px-5 lg:px-6">
         <div className="flex items-center justify-between h-16 md:h-18">
           {/* Logo */}
           <a href="#home" className="flex items-center gap-2.5 group">
@@ -85,10 +88,10 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className={`px-3 py-1.5 rounded-md text-xs font-mono transition-all duration-200 ${
+                className={`relative px-3.5 py-1.5 rounded-full text-xs font-mono transition-all duration-200 ${
                   activeSection === link.href.slice(1)
-                    ? `${accentText} ${accentBg}`
-                    : "text-gray-400 hover:text-white hover:bg-white/5"
+                    ? `${accentText} ${accentBg} border ${accentBorder}`
+                    : "text-gray-400 hover:text-white hover:bg-white/5 border border-transparent"
                 }`}
               >
                 {link.name}
@@ -137,7 +140,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[#0f172a]/95 dark:bg-[#0a0e1a]/95 backdrop-blur-xl border-b border-white/5"
+            className="md:hidden overflow-hidden bg-[#0f172a]/95 dark:bg-[#0a0e1a]/95 backdrop-blur-2xl border-t border-white/[0.06] rounded-b-2xl"
           >
             <div className="px-4 py-3 space-y-0.5">
               {navLinks.map((link) => (
@@ -160,6 +163,7 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
     </motion.nav>
   );
 }
