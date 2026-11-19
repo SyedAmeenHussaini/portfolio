@@ -1,262 +1,94 @@
-"use client";
+import Section from "./Section";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import {
-  Brain,
-  BarChart3,
-  MessageSquare,
-  Globe,
-  CreditCard,
-  Rocket,
-  Compass,
-  ArrowUpRight,
-  Circle,
-} from "lucide-react";
-
+// `wide` cards span two columns on desktop; order them so the rows zigzag 2+1, 1+2, 1+2
 const projects = [
   {
     title: "ARIES",
-    subtitle: "Enterprise AI & Automation Test Case Gen Platform",
+    subtitle: "Enterprise AI & Automation Test-Case Generation Platform",
     description:
-      "Hybrid microservices platform (Spring Boot on ECS + FastAPI on EC2/EKS) with vLLM on EKS GPU node groups for high-throughput inference, private Ollama LLM with tenant isolation, Cloudflare Zero Trust + OTP edge hardening, and zero-touch Terraform pipelines.",
-    tech: [
-      "AWS ECS/EKS",
-      "vLLM",
-      "Ollama",
-      "Spring Boot",
-      "FastAPI",
-      "Cloudflare Zero Trust",
-      "Terraform",
-      "GitHub Actions",
-    ],
-    icon: Brain,
-    status: "production",
-    color: "#00e5ff",
+      "Hybrid microservices platform — API gateway and AI analysis services on ECS Fargate, FastAPI and Next.js on EC2 — behind ALB routing with tenant isolation. Migrated LLM inference from self-hosted vLLM and Ollama to AWS Bedrock (Claude), brought 69 live AWS resources under Terraform, and cut non-production spend by ~40% with a serverless start/stop control panel.",
+    tech: ["AWS ECS Fargate", "AWS Bedrock", "ALB", "SQS FIFO", "ElastiCache Redis", "RDS MySQL", "Lambda", "Terraform", "GitHub Actions", "Cloudflare Zero Trust"],
+    status: "In production",
+    wide: true,
   },
   {
-    title: "AURORA",
-    subtitle: "Analytics, MLOps & Demand Forecasting Platform",
+    title: "LYFTRR",
+    subtitle: "AI-Powered Career-Trajectory Platform",
     description:
-      "Azure Databricks Lakehouse with ADLS Gen2 medallion layers and Unity Catalog governance. Multi-environment Terraform infra with gated approvals, MLflow experiment lifecycle, and automated Databricks Workflows for demand forecasting.",
-    tech: [
-      "Azure Databricks",
-      "ADLS Gen2",
-      "Unity Catalog",
-      "MLflow",
-      "Terraform",
-      "PySpark",
-    ],
-    icon: BarChart3,
-    status: "production",
-    color: "#7c3aed",
-  },
-  {
-    title: "AURORA V2",
-    subtitle: "Azure Container Apps, MLOps & LLMOps Modernization",
-    description:
-      "Platform modernization on Azure Container Apps with keyless OIDC auth, path-scoped CI/CD (6 workflows), LightGBM forecasting via MLflow Registry on Unity Catalog, DLT medallion ETL, ARQ + Redis task queue, and a LangGraph text-to-SQL agent.",
-    tech: [
-      "Azure Container Apps",
-      "OIDC",
-      "Terraform",
-      "MLflow",
-      "Delta Lake / DLT",
-      "LangGraph",
-      "Redis",
-      "CodeQL",
-    ],
-    icon: Rocket,
-    status: "production",
-    color: "#f43f5e",
+      "Multi-service AI platform (Node + Next.js + FastAPI/Celery) on GCP — Vertex AI (Gemini 2.5 Flash) and Cloud SQL Postgres + pgvector powering a RAG pipeline, profile-based Docker Compose stack, Caddy TLS proxy, and Nx-gated GitHub Actions deploys over hardened SSH.",
+    tech: ["GCP Vertex AI", "pgvector", "RAG", "Docker Compose", "Celery + Redis", "Caddy", "Nx", "GitHub Actions"],
+    status: "In production",
   },
   {
     title: "LUMA",
     subtitle: "Conversational AI Platform",
     description:
       "LLM-powered conversational services using FastAPI and React on AWS Lambda (Docker). Reduced model rollout time by 60% through CI/CD automation with staging gates and distributed tracing; remediated an npm supply-chain attack with SHA pinning and Trivy gates.",
-    tech: [
-      "FastAPI",
-      "React",
-      "AWS Lambda",
-      "Docker",
-      "LLM",
-      "Trivy",
-      "CI/CD",
-    ],
-    icon: MessageSquare,
-    status: "production",
-    color: "#00ff88",
+    tech: ["FastAPI", "React", "AWS Lambda", "Docker", "LLM", "Trivy", "CI/CD"],
+    status: "In production",
   },
   {
-    title: "LYFTRR",
-    subtitle: "AI-Powered Career-Trajectory Platform",
+    title: "AURORA",
+    subtitle: "Analytics, MLOps & LLMOps Platform (Azure Databricks + Container Apps)",
     description:
-      "Multi-service AI platform (Node + Next.js + FastAPI/Celery) on GCP — Vertex AI (Gemini 2.5 Flash) and Cloud SQL Postgres + pgvector powering a RAG pipeline, profile-based Docker Compose stack, Caddy TLS proxy, and single-command GitHub Actions deploys.",
-    tech: [
-      "GCP Vertex AI",
-      "pgvector",
-      "RAG",
-      "Docker Compose",
-      "Celery + Redis",
-      "Caddy",
-      "GitHub Actions",
-    ],
-    icon: Compass,
-    status: "production",
-    color: "#ffb800",
+      "Azure Databricks Lakehouse with medallion layers and Unity Catalog governance, plus 8 Container Apps provisioned with modular Terraform and keyless OIDC auth. LightGBM demand forecasting through MLflow Model Registry, DLT medallion ETL with 35 Metric Views, an ARQ + Redis task queue, and a LangGraph text-to-SQL agent.",
+    tech: ["Azure Databricks", "Unity Catalog", "Azure Container Apps", "OIDC", "Terraform", "MLflow", "Delta Lake / DLT", "LangGraph", "Redis", "CodeQL"],
+    status: "In production",
+    wide: true,
   },
   {
     title: "AZTRA Website",
     subtitle: "Real-Time Production Website",
     description:
       "Production website on AWS EC2 with Next.js + Strapi, Nginx reverse proxy, Cloudflare CDN/WAF, and DDoS protection. Optimized availability and performance.",
-    tech: [
-      "Next.js",
-      "Strapi",
-      "AWS EC2",
-      "Nginx",
-      "Cloudflare",
-    ],
-    icon: Globe,
-    status: "live",
-    color: "#f59e0b",
+    tech: ["Next.js", "Strapi", "AWS EC2", "Nginx", "Cloudflare"],
+    status: "Live",
   },
   {
     title: "FlexiPayment",
     subtitle: "Fintech-Grade Cloud Infrastructure",
     description:
       "PCI-DSS-compliant AWS infrastructure for payment systems — multi-branch environment isolation (dev/staging/prod), Blue-Green/Canary deployments on ECS Fargate, WAF/Shield Advanced, SonarQube & Trivy gates, and 15–20% cost optimization.",
-    tech: [
-      "AWS ECS/EKS",
-      "Terraform",
-      "Ansible",
-      "Jenkins",
-      "GitHub Actions",
-      "Docker",
-      "SonarQube",
-      "WAF/Shield",
-      "CloudWatch",
-    ],
-    icon: CreditCard,
-    status: "completed",
-    color: "#f43f5e",
+    tech: ["AWS ECS/EKS", "Terraform", "Ansible", "Jenkins", "GitHub Actions", "Docker", "SonarQube", "WAF/Shield", "CloudWatch"],
+    status: "Completed",
+    wide: true,
   },
 ];
 
-const getStatusConfig = (status: string) => {
-  switch (status) {
-    case "production":
-      return { label: "Production", color: "#00ff88", bg: "bg-[#00ff88]/10", border: "border-[#00ff88]/20" };
-    case "live":
-      return { label: "Live", color: "#00ff88", bg: "bg-[#00ff88]/10", border: "border-[#00ff88]/20" };
-    case "completed":
-      return { label: "Completed", color: "#00e5ff", bg: "bg-[#00e5ff]/10", border: "border-[#00e5ff]/20" };
-    default:
-      return { label: "Active", color: "#ffb800", bg: "bg-[#ffb800]/10", border: "border-[#ffb800]/20" };
-  }
-};
-
 export default function Projects() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section id="projects" className="relative py-24 sm:py-32">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#7c3aed]/[0.02] to-transparent pointer-events-none" />
+    <Section id="projects" title="Platforms I've shipped">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project) => (
+          <article
+            key={project.title}
+            className={`flex flex-col rounded-2xl border border-line bg-card p-6 ${project.wide ? "lg:col-span-2" : ""}`}
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h3 className="text-lg font-medium text-fg">{project.title}</h3>
+                <p className="mt-1 text-sm text-fg-3">{project.subtitle}</p>
+              </div>
+              <span className="flex shrink-0 items-center gap-2 pt-1.5 font-mono text-xs text-fg-3">
+                <span
+                  className={`size-1.5 rounded-full ${project.status === "Completed" ? "bg-fg-3" : "bg-positive"}`}
+                />
+                {project.status}
+              </span>
+            </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-400/5 dark:bg-[#00e5ff]/5 border border-sky-400/10 dark:border-[#00e5ff]/10 mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-sky-400 dark:bg-[#00e5ff]" />
-            <span className="text-xs text-sky-400 dark:text-[#00e5ff] font-mono uppercase tracking-wider">
-              Infrastructure Portfolio
-            </span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">
-            Featured <span className="gradient-text">Projects</span>
-          </h2>
-        </motion.div>
+            <p className="mt-4 flex-grow text-[15px] leading-7 text-fg-2">{project.description}</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {projects.map((project, i) => {
-            const statusConfig = getStatusConfig(project.status);
-            return (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.08 * (i + 1) }}
-                className="terminal-card p-0 flex flex-col group"
-              >
-                {/* Terminal header */}
-                <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/5">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-[#ff5f57]" />
-                    <span className="w-2 h-2 rounded-full bg-[#ffbd2e]" />
-                    <span className="w-2 h-2 rounded-full bg-[#28c840]" />
-                  </div>
-                  <span className="text-[10px] text-gray-500 font-mono">
-                    {project.title.toLowerCase().replace(/\s/g, '-')}.infra
-                  </span>
-                  <ArrowUpRight
-                    size={12}
-                    className="text-gray-600 group-hover:text-sky-400 dark:group-hover:text-[#00e5ff] transition-colors"
-                  />
-                </div>
-
-                {/* Content */}
-                <div className="p-5 flex flex-col flex-grow">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex items-center gap-3">
-                      <div
-                        className="w-10 h-10 rounded-lg flex items-center justify-center"
-                        style={{ background: `${project.color}15` }}
-                      >
-                        <project.icon
-                          className="w-5 h-5"
-                          style={{ color: project.color }}
-                        />
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-white text-sm">{project.title}</h3>
-                        <p className="text-[11px] text-gray-500">{project.subtitle}</p>
-                      </div>
-                    </div>
-                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full ${statusConfig.bg} ${statusConfig.border} border`}>
-                      <Circle size={5} fill={statusConfig.color} style={{ color: statusConfig.color }} />
-                      <span className="text-[9px] font-mono uppercase" style={{ color: statusConfig.color }}>
-                        {statusConfig.label}
-                      </span>
-                    </span>
-                  </div>
-
-                  <p className="text-xs text-gray-400 leading-relaxed mb-4 flex-grow">
-                    {project.description}
-                  </p>
-
-                  {/* Tech tags */}
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="px-2 py-0.5 text-[10px] font-mono rounded bg-white/[0.03] border border-white/[0.06] text-gray-400"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+            <ul className="mt-6 flex flex-wrap gap-1.5">
+              {project.tech.map((t) => (
+                <li key={t} className="rounded-md bg-raised px-2 py-1 font-mono text-xs text-fg-2">
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
       </div>
-    </section>
+    </Section>
   );
 }

@@ -1,46 +1,53 @@
-"use client";
-
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import { Building2, MapPin, Calendar, ChevronRight, Circle } from "lucide-react";
+import Section from "./Section";
 
 const experiences = [
   {
     company: "AZTRA",
     role: "Platform Engineer",
-    location: "Remote - Columbus, United States",
-    period: "05/2025 - Present",
+    location: "Remote – Columbus, US",
+    period: "May 2025 – Present",
     type: "current",
     projects: [
       {
-        name: "Project ARIES - Enterprise AI & Automation Test Case Gen Platform",
+        name: "Project ARIES – Enterprise AI & Automation Test-Case Generation Platform",
         points: [
-          "Architected a hybrid microservices platform (Java Spring Boot on ECS + FastAPI on EC2/EKS); migrated the monolithic EC2 platform to microservices on ECS Fargate with ALB-based routing, enabling zero-downtime deployments and independent scaling.",
-          "Deployed vLLM on EKS with EC2 GPU node groups for high-throughput AI inference; set up a private Ollama LLM with API Gateway + ALB tenant isolation and Cloudflare WAF.",
-          "Hardened the edge with Cloudflare Zero Trust + OTP, DNSSEC, and device posture policies; built GitHub Actions + Terraform zero-touch pipelines with automated rollbacks.",
-          "Leveraged Cursor IDE & Claude Agents for Terraform module authoring, runbook automation, and AI-assisted code reviews — cutting delivery cycle by ~35%.",
-          "Led and mentored 2 junior cloud engineers — weekly 1:1 IaC code reviews, Terraform module standards, and GitOps onboarding to accelerate team velocity.",
-          "Implemented AWS Cost Explorer + AWS Budgets with SNS alerts and per-environment spend thresholds; built structured CloudWatch Log Groups, error-rate alarms, and Grafana dashboards for inference latency and GPU utilization.",
+          "Architected and operate a hybrid microservices platform — containerized API gateway and AI analysis services on ECS Fargate, FastAPI backend and Next.js frontend on EC2 — behind ALB host/path routing with tenant isolation and Cloudflare WAF.",
+          "Migrated LLM inference from self-hosted vLLM on EKS GPU node groups (Qwen) and private Ollama to AWS Bedrock (Claude), eliminating idle GPU cost while keeping an on-demand GPU serving path; aligned provider config, judge model-tier ladders and IAM InvokeModel policies across all environments.",
+          "Authored an on-demand GPU vLLM serving design (golden AMI, ~$15/month parked, ~10 minutes to serving) as the reference recipe for client-site and air-gapped deployments.",
+          "Imported the entire live AWS estate into Terraform — 69 resources across two running environments with drift-free plans — and refactored it into a reusable environment module (ECS cluster, services, target groups, queues, ECR, log groups).",
+          "Provisioned a third environment end-to-end from that module — ECS cluster with 4 services, ALB with production-parity listener rules, SQS FIFO queues, ECR, dedicated ElastiCache Redis, tenant-isolated MySQL schemas, EC2 web/backend hosts and SSO (Azure Entra OIDC + Cloudflare DNS/WAF).",
+          "Rebuilt the dev environment to full staging parity (ECS Fargate, ALB routing, SQS FIFO, ElastiCache Redis, shared RDS MySQL with per-tenant schemas) for the engineering team.",
+          "Established branch-per-environment GitOps (dev → staging → prod, plus demo) with environment-scoped GitHub Actions variables to stop configuration bleed between environments.",
+          "Right-sized shared RDS MySQL under live traffic after diagnosing connection-pool exhaustion across three environments (max_connections 61 → 305) — snapshot-first, zero-data-loss upgrade with a PITR safety net.",
+          "Separated ElastiCache Redis per environment to end cross-environment job-queue interference, isolating the production-like environment without touching it.",
+          "Built a serverless start/stop control panel (Lambda Function URL, scoped IAM with explicit production-deny, live ECS/EC2 status and failure detection) — cutting non-production cloud spend by ~$350/month (~40%).",
+          "Debugged across layers in production (CloudWatch Logs, ALB listener rules, MySQL forensics): fixed an ALB hairpin routing loop, a gateway middleware kill-switch misconfiguration, and shared-CI variable overrides that silently disabled the test-generation planner.",
+          "Hardened the edge with Cloudflare Zero Trust + OTP, DNSSEC, scoped WAF skip rules and device posture policies; built GitHub Actions + Terraform zero-touch pipelines with automated rollbacks.",
+          "Used Cursor IDE and Claude Agents for Terraform module authoring, runbook automation and AI-assisted code reviews — cutting the delivery cycle by ~35%.",
+          "Led and mentored 2 junior cloud engineers — weekly 1:1 IaC code reviews, Terraform module standards, GitOps onboarding and delegated ownership of non-critical microservices.",
+          "Implemented AWS Cost Explorer + Budgets with SNS alerts, per-environment spend thresholds and monthly cost models used for sizing decisions; built per-service CloudWatch Log Groups with metric filters, error-rate alarms and Grafana dashboards for inference latency, API errors and GPU utilization.",
         ],
       },
       {
-        name: "Project AURORA - Analytics, MLOps & Demand Forecasting Platform",
+        name: "ARIES – troubleshooting",
         points: [
-          "Designed Azure Databricks Lakehouse architecture using ADLS Gen2 medallion layers (Bronze, Silver, Gold); provisioned multi-environment Terraform infra (dev/staging/prod) with GitHub Actions environment-gated approvals.",
-          "Configured Unity Catalog with granular permissions and Azure AD IAM role assignments to users, service principals, and managed identities via Terraform.",
-          "Implemented MLflow for the full experiment lifecycle with model versioning and controlled production promotion; automated Databricks Workflows for demand forecasting and batch inference.",
-          "Enforced Databricks cluster policies and Azure Cost Management budgets with 80%/100% alert thresholds; built Azure Monitor queries and Grafana dashboards tracking pipeline durations and job failure rates.",
+          "Monolith on a single EC2 instance, with full downtime on every deploy → decomposed services by domain, containerized each, and moved them to ECS Fargate behind ALB routing with per-service CI/CD, giving zero-downtime deploys and independent scaling.",
+          "The AI test-generation judge pipeline silently produced no results in every environment → traced it through CloudWatch logs and MySQL to an unapplied per-tenant migration that made workers drop every queued job as a duplicate; applied the fix on owned environments and wrote the evidence-based report adopted upstream for production.",
         ],
       },
       {
-        name: "Project AURORA V2 - Azure Container Apps, MLOps & LLMOps Modernization",
+        name: "Project AURORA – Analytics, MLOps & LLMOps Platform (Azure Databricks + Container Apps)",
         points: [
-          "Built path-scoped GitHub Actions CI/CD (6 workflows) independently gating UI, FastAPI, and Databricks changes; multi-stage Docker Buildx with layer caching and PR-time dry-run builds.",
-          "Ran matrix deployments to Azure Container Apps — one image serving 3 runtimes (API + 2 async workers) via a WORKER_MODE entrypoint dispatch pattern with container healthchecks.",
-          "Implemented keyless auth end-to-end: GitHub → Azure OIDC federated login, ACR pull via managed identity, and Databricks OAuth M2M — with immutable image tags and dev/prod approval gates.",
-          "Authored modular Terraform provisioning the full Azure platform (Container Apps, ACR, Log Analytics, Redis, Postgres Flexible Server, Entra ID) — 8 Container Apps across dev/prod with per-env autoscaling.",
-          "Operationalized a LightGBM demand-forecasting engine with MLflow Model Registry on Unity Catalog; built config-driven medallion ETL on PySpark/Delta Lake with DLT streaming tables and 35 Metric Views.",
-          "Automated CodeQL SAST and Dependabot grouped updates; ran an ARQ + Redis task queue with pub/sub → SSE streaming; deployed a LangGraph ReAct text-to-SQL agent on Databricks Foundation Model Serving.",
+          "Designed an Azure Databricks Lakehouse (ADLS Gen2 medallion layers — Bronze/Silver/Gold) with Unity Catalog permissions and Azure AD role assignments for users, service principals and managed identities; multi-environment Terraform (dev → staging → prod) with environment-gated GitHub Actions approvals.",
+          "Enforced Databricks cluster policies and Azure Cost Management budgets (80%/100% thresholds, email + Teams alerts); built Azure Monitor + Grafana dashboards for pipeline durations, model inference metrics and job failure rates.",
+          "Built path-scoped GitHub Actions CI/CD (6 workflows, dorny/paths-filter) independently gating UI, FastAPI and Databricks changes; multi-stage Docker Buildx with GHA + registry layer caching and PR-time dry-run builds.",
+          "Ran matrix deployments to Azure Container Apps — one aurora-api image serving 3 runtimes (API + 2 async workers) via a WORKER_MODE entrypoint dispatch with container healthchecks.",
+          "Implemented keyless auth end-to-end: GitHub → Azure OIDC federated login with no stored cloud credentials, ACR pull via managed identity, Databricks OAuth M2M; immutable branch-sha7 image tags, dev/prod approval gates and automated GitHub Releases.",
+          "Automated security and hygiene: CodeQL SAST (security-extended, weekly), Dependabot grouped updates across npm/pip/docker/actions, and auto-sync of main → dev to prevent branch drift.",
+          "Authored modular Terraform (azurerm/azuread/azapi, remote state) for the full Azure platform — Container Apps, ACR, Log Analytics, Redis, managed identity, Postgres Flexible Server, Entra ID Easy Auth — with for_each provisioning 8 Container Apps; built a multi-cloud BYOC IaC skeleton (Azure/AWS/GCP).",
+          "Operationalized a LightGBM demand-forecasting engine (per-cohort objectives, 10-horizon direct forecasting) with MLflow Model Registry on Unity Catalog and alias-based promotion; traced served-model calls across API and LLM agent with OpenTelemetry / Azure Monitor.",
+          "Packaged ML training as versioned wheels via Databricks Asset Bundles; orchestrated multi-task Workflow Jobs (parallel fit → recursive 52-week forecast); built config-driven medallion ETL on PySpark/Delta Lake with DLT streaming tables and a semantic layer of 35 Metric Views.",
+          "Ran an ARQ + Redis task queue for simulation compute with SKU-count-based routing, Redis pub/sub → SSE streaming and cron workers; deployed a LangGraph ReAct text-to-SQL agent on Databricks Foundation Model Serving with a SQL-safety allow-list.",
         ],
       },
       {
@@ -52,21 +59,22 @@ const experiences = [
         ],
       },
       {
-        name: "Project LYFTRR - AI-Powered Career-Trajectory Platform (DevOps & MLOps)",
+        name: "Project LYFTRR – AI-Powered Career-Trajectory Platform (DevOps & MLOps)",
         points: [
-          "Owned CI/CD, containerization, cloud infrastructure, and observability for a multi-service AI platform (Node + Next.js + FastAPI/Celery) with automated production deploys on GCP.",
-          "Containerized a 4-service stack with profile-based Docker Compose — one manifest runs identically on laptop, dev VPS, and CI — with healthchecks, dependency ordering, and single-command deploys.",
-          "Provisioned GCP ML infrastructure — Vertex AI (Gemini 2.5 Flash) with IAM setup and Cloud SQL Postgres + pgvector (HNSW) — powering a RAG pipeline with a Celery + Redis async worker tier.",
-          "Configured Caddy as TLS-terminating reverse proxy; designed trace-ID propagation via ASGI middleware with structured JSON logging and PII/secret redaction.",
+          "Owned CI/CD, containerization, cloud infrastructure and observability for a multi-service AI platform (Node + Next.js + FastAPI/Celery), from local dev parity through automated production deploys on GCP.",
+          "Built a GitHub Actions pipeline (Nx build + lint, concurrency-gated, cached npm ci) gating every merge and driving zero-touch deploys to the VPS over hardened SSH.",
+          "Containerized a 4-service stack with profile-based Docker Compose and multi-stage Dockerfiles with automatic DB migrations — one manifest runs identically on laptop, VPS and CI, deployed with a single idempotent command.",
+          "Provisioned GCP ML infrastructure with reusable scripts — Vertex AI (Gemini 2.5 Flash), IAM/service accounts, Cloud SQL Postgres + pgvector (HNSW) — powering a RAG pipeline with a Celery + Redis worker tier.",
+          "Configured Caddy as a TLS-terminating reverse proxy (three upstreams); designed trace-ID propagation via ASGI middleware with structured JSON logging, per-request latency and PII/secret redaction.",
         ],
       },
     ],
   },
   {
-    company: "FLEXIPAYMENT FINTECH",
+    company: "FlexiPayment Fintech",
     role: "Software Engineer",
     location: "Mumbai, India",
-    period: "02/2024 - 10/2024",
+    period: "Feb 2024 – Oct 2024",
     type: "past",
     projects: [
       {
@@ -111,10 +119,10 @@ const experiences = [
     ],
   },
   {
-    company: "MESLOGIC IT SOLUTIONS",
+    company: "Meslogic IT Solutions",
     role: "Jr. Software Engineer",
     location: "Hyderabad, India (Remote)",
-    period: "09/2021 - 11/2023",
+    period: "Sep 2021 – Nov 2023",
     type: "past",
     projects: [
       {
@@ -149,121 +157,68 @@ const experiences = [
   },
 ];
 
+const leadership = [
+  "Mentored and supervised junior cloud engineers across AZTRA and FlexiPayment — structured onboarding plans, ownership of cloud modules, and regular knowledge-sharing sessions on Terraform, Kubernetes and CI/CD.",
+  "Established an IaC review culture — mandatory PR review and plan validation before any Terraform apply, plus team-wide naming, tagging and module-structure standards adopted across projects.",
+  "Drove blameless postmortems after production issues, documenting root causes and action items so incidents like the supply-chain attack and Terraform race conditions became team-wide learning.",
+];
+
+const bullet =
+  "relative pl-5 text-[15px] leading-7 text-fg-2 before:absolute before:top-[13px] before:left-0 before:h-px before:w-2.5 before:bg-fg-3";
+
 export default function Experience() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section id="experience" className="relative py-24 sm:py-32">
-      <div className="absolute inset-0 bg-dot-grid opacity-10 pointer-events-none" />
+    <Section id="experience" title="4 years across AI, fintech and healthcare platforms">
+      <div className="space-y-12">
+        {experiences.map((exp, i) => (
+          <article
+            key={exp.company}
+            className={`grid gap-6 md:grid-cols-[240px_1fr] md:gap-12 ${i > 0 ? "border-t border-line pt-12" : ""}`}
+          >
+            <header className="self-start md:sticky md:top-24">
+              <h3 className="text-xl font-medium text-fg">{exp.company}</h3>
+              <p className="mt-1 text-[15px] text-fg-2">{exp.role}</p>
+              <p className="mt-4 font-mono text-[13px] leading-5 text-fg-3">{exp.period}</p>
+              <p className="font-mono text-[13px] leading-5 text-fg-3">{exp.location}</p>
+              {exp.type === "current" && (
+                <p className="mt-4 flex items-center gap-2 text-[13px] text-fg-2">
+                  <span className="size-2 rounded-full bg-positive" />
+                  Current role
+                </p>
+              )}
+            </header>
 
-      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-400/5 dark:bg-[#00e5ff]/5 border border-sky-400/10 dark:border-[#00e5ff]/10 mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-sky-400 dark:bg-[#00e5ff]" />
-            <span className="text-xs text-sky-400 dark:text-[#00e5ff] font-mono uppercase tracking-wider">
-              Deployment History
-            </span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">
-            Professional <span className="gradient-text">Experience</span>
-          </h2>
-        </motion.div>
-
-        <div className="relative">
-          {/* Pipeline line */}
-          <div className="absolute left-4 md:left-8 top-0 bottom-0 w-px">
-            <div className="h-full bg-gradient-to-b from-sky-400/40 dark:from-[#00e5ff]/40 via-[#7c3aed]/40 to-transparent" />
-          </div>
-
-          <div className="space-y-10">
-            {experiences.map((exp, i) => (
-              <motion.div
-                key={exp.company}
-                initial={{ opacity: 0, x: -30 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.15 * (i + 1) }}
-                className="relative pl-12 md:pl-20"
-              >
-                {/* Pipeline node */}
-                <div className="absolute left-2 md:left-6 top-5">
-                  {exp.type === "current" ? (
-                    <div className="relative">
-                      <div className="w-4 h-4 rounded-full bg-emerald-400 dark:bg-[#00ff88] border-2 border-[#0a0e1a]" />
-                      <div className="absolute inset-0 w-4 h-4 rounded-full bg-emerald-400 dark:bg-[#00ff88] animate-node-pulse" />
-                    </div>
-                  ) : (
-                    <div className="w-4 h-4 rounded-full bg-gray-700 border-2 border-[#0a0e1a] ring-1 ring-gray-600" />
-                  )}
-                </div>
-
-                {/* Company card */}
-                <div className="terminal-card overflow-visible">
-                  {/* Card header bar */}
-                  <div className="px-5 py-3 border-b border-white/5 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <Building2 size={16} className="text-sky-400 dark:text-[#00e5ff]" />
-                      <h3 className="font-bold text-white text-lg">{exp.company}</h3>
-                      {exp.type === "current" && (
-                        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-400/10 dark:bg-[#00ff88]/10 border border-emerald-400/20 dark:border-[#00ff88]/20">
-                          <Circle size={6} fill="currentColor" className="text-emerald-400 dark:text-[#00ff88] status-live" />
-                          <span className="text-[10px] font-mono text-emerald-400 dark:text-[#00ff88] uppercase">Active</span>
-                        </span>
-                      )}
-                    </div>
-                    <div className="hidden sm:flex items-center gap-4 text-xs text-gray-400 font-mono">
-                      <span className="flex items-center gap-1">
-                        <MapPin size={12} />
-                        {exp.location}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Calendar size={12} />
-                        {exp.period}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Role */}
-                  <div className="px-5 py-2 border-b border-white/5 bg-white/[0.02]">
-                    <span className="text-sky-400 dark:text-[#00e5ff] font-mono text-sm">{exp.role}</span>
-                    <div className="sm:hidden flex items-center gap-4 text-xs text-gray-400 font-mono mt-1">
-                      <span className="flex items-center gap-1"><MapPin size={10} />{exp.location}</span>
-                      <span className="flex items-center gap-1"><Calendar size={10} />{exp.period}</span>
-                    </div>
-                  </div>
-
-                  {/* Projects */}
-                  <div className="p-5 space-y-5">
-                    {exp.projects.map((project) => (
-                      <div key={project.name}>
-                        <h4 className="text-xs font-semibold text-[#7c3aed] mb-2.5 flex items-center gap-2 font-mono uppercase tracking-wider">
-                          <ChevronRight size={12} className="text-[#7c3aed]" />
-                          {project.name}
-                        </h4>
-                        <ul className="space-y-1.5 ml-4">
-                          {project.points.map((point, j) => (
-                            <li
-                              key={j}
-                              className="text-sm text-gray-400 leading-relaxed pl-4 relative before:content-['▸'] before:absolute before:left-0 before:text-sky-400/40 dark:before:text-[#00e5ff]/40 before:text-xs"
-                            >
-                              {point}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+            <div className="space-y-8">
+              {exp.projects.map((project) => (
+                <div key={project.name}>
+                  <h4 className="text-[15px] font-medium text-fg">{project.name}</h4>
+                  <ul className="mt-3 space-y-2">
+                    {project.points.map((point) => (
+                      <li key={point} className={bullet}>
+                        {point}
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
-              </motion.div>
+              ))}
+            </div>
+          </article>
+        ))}
+
+        <article className="grid gap-6 border-t border-line pt-12 md:grid-cols-[240px_1fr] md:gap-12">
+          <header>
+            <h3 className="text-xl font-medium text-fg">Leadership</h3>
+            <p className="mt-1 text-[15px] text-fg-2">Team development</p>
+          </header>
+          <ul className="space-y-2">
+            {leadership.map((point) => (
+              <li key={point} className={bullet}>
+                {point}
+              </li>
             ))}
-          </div>
-        </div>
+          </ul>
+        </article>
       </div>
-    </section>
+    </Section>
   );
 }
